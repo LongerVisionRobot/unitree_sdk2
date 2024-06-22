@@ -213,7 +213,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::geometry_msgs::msg::dds_::PointStamped_>();
+const propvec &get_type_props<::geometry_msgs::msg::dds_::PointStamped_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::geometry_msgs::msg::dds_::PointStamped_& instance, entity_properties_t *props) {
