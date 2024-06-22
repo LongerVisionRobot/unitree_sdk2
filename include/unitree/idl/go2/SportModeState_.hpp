@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <array>
+#include <ostream>
 
 namespace unitree_go
 {
@@ -163,6 +164,39 @@ public:
   bool operator!=(const SportModeState_& _other) const
   {
     return !(*this == _other);
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const SportModeState_& obj) {
+    os << "SportModeState_ {"
+       << "stamp: " << obj.stamp_
+       << ", error_code: " << obj.error_code_
+       << ", imu_state: " << obj.imu_state_
+       << ", mode: " << static_cast<int>(obj.mode_)
+       << ", progress: " << obj.progress_
+       << ", gait_type: " << static_cast<int>(obj.gait_type_)
+       << ", foot_raise_height: " << obj.foot_raise_height_
+       << ", position: [" << obj.position_[0] << ", " << obj.position_[1] << ", " << obj.position_[2] << "]"
+       << ", body_height: " << obj.body_height_
+       << ", velocity: [" << obj.velocity_[0] << ", " << obj.velocity_[1] << ", " << obj.velocity_[2] << "]"
+       << ", yaw_speed: " << obj.yaw_speed_
+       << ", range_obstacle: [" << obj.range_obstacle_[0] << ", " << obj.range_obstacle_[1] << ", " << obj.range_obstacle_[2] << ", " << obj.range_obstacle_[3] << "]"
+       << ", foot_force: [" << obj.foot_force_[0] << ", " << obj.foot_force_[1] << ", " << obj.foot_force_[2] << ", " << obj.foot_force_[3] << "]"
+       << ", foot_position_body: [" 
+            << obj.foot_position_body_[0] << ", " << obj.foot_position_body_[1] << ", " << obj.foot_position_body_[2] << ", "
+            << obj.foot_position_body_[3] << ", " << obj.foot_position_body_[4] << ", " << obj.foot_position_body_[5] << ", "
+            << obj.foot_position_body_[6] << ", " << obj.foot_position_body_[7] << ", " << obj.foot_position_body_[8] << ", "
+            << obj.foot_position_body_[9] << ", " << obj.foot_position_body_[10] << ", " << obj.foot_position_body_[11] << "]"
+       << ", foot_speed_body: [" 
+            << obj.foot_speed_body_[0] << ", " << obj.foot_speed_body_[1] << ", " << obj.foot_speed_body_[2] << ", "
+            << obj.foot_speed_body_[3] << ", " << obj.foot_speed_body_[4] << ", " << obj.foot_speed_body_[5] << ", "
+            << obj.foot_speed_body_[6] << ", " << obj.foot_speed_body_[7] << ", " << obj.foot_speed_body_[8] << ", "
+            << obj.foot_speed_body_[9] << ", " << obj.foot_speed_body_[10] << ", " << obj.foot_speed_body_[11] << "]"
+       << ", path_point: [";
+    for (const auto& point : obj.path_point_) {
+        os << point << ", ";
+    }
+    os << "] }";
+    return os;
   }
 
 };
@@ -394,7 +428,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_go::msg::dds_::SportModeState_>();
+const propvec &get_type_props<::unitree_go::msg::dds_::SportModeState_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_go::msg::dds_::SportModeState_& instance, entity_properties_t *props) {
@@ -931,6 +965,11 @@ bool move(S& str, const ::unitree_go::msg::dds_::SportModeState_& instance, bool
   auto &props = get_type_props<::unitree_go::msg::dds_::SportModeState_>();
   str.set_mode(cdr_stream::stream_mode::move, as_key);
   return move(str, instance, props.data()); 
+}
+
+template<>
+bool move(basic_cdr_stream& str, const unitree_go::msg::dds_::SportModeState_& instance, key_mode mode) {
+    return move(str, instance, mode == key_mode::sorted);
 }
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >

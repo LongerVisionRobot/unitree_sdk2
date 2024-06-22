@@ -51,6 +51,11 @@ public:
     return !(*this == _other);
   }
 
+  // Friend function to define the operator<<
+  friend std::ostream& operator<<(std::ostream& os, const TimeSpec_& obj) {
+      os << "TimeSpec_ { sec: " << obj.sec_ << ", nanosec: " << obj.nanosec_ << " }";
+      return os;
+  }
 };
 
 }
@@ -143,7 +148,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_go::msg::dds_::TimeSpec_>();
+const propvec &get_type_props<::unitree_go::msg::dds_::TimeSpec_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_go::msg::dds_::TimeSpec_& instance, entity_properties_t *props) {

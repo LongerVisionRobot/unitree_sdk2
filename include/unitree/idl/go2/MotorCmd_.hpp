@@ -193,7 +193,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_go::msg::dds_::MotorCmd_>();
+const propvec &get_type_props<::unitree_go::msg::dds_::MotorCmd_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_go::msg::dds_::MotorCmd_& instance, entity_properties_t *props) {

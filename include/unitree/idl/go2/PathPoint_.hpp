@@ -85,6 +85,17 @@ public:
     return !(*this == _other);
   }
 
+  // Friend function to define the operator<<
+  friend std::ostream& operator<<(std::ostream& os, const PathPoint_& obj) {
+      os << "PathPoint_ { t_from_start: " << obj.t_from_start_
+          << ", x: " << obj.x_
+          << ", y: " << obj.y_
+          << ", yaw: " << obj.yaw_
+          << ", vx: " << obj.vx_
+          << ", vy: " << obj.vy_
+          << ", vyaw: " << obj.vyaw_ << " }";
+      return os;
+  }
 };
 
 }
@@ -189,7 +200,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_go::msg::dds_::PathPoint_>();
+const propvec &get_type_props<::unitree_go::msg::dds_::PathPoint_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_go::msg::dds_::PathPoint_& instance, entity_properties_t *props) {

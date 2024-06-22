@@ -77,6 +77,21 @@ public:
     return !(*this == _other);
   }
 
+  // Friend function to define the operator<<
+  friend std::ostream& operator<<(std::ostream& os, const IMUState_& obj) {
+      os << "IMUState_ {"
+          << "quaternion: {";
+      for (const auto& q : obj.quaternion_) os << q << " ";
+      os << "}, gyroscope: {";
+      for (const auto& g : obj.gyroscope_) os << g << " ";
+      os << "}, accelerometer: {";
+      for (const auto& a : obj.accelerometer_) os << a << " ";
+      os << "}, rpy: {";
+      for (const auto& r : obj.rpy_) os << r << " ";
+      os << "}, temperature: " << static_cast<int>(obj.temperature_)
+          << " }";
+      return os;
+  }
 };
 
 }
@@ -184,7 +199,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_go::msg::dds_::IMUState_>();
+const propvec &get_type_props<::unitree_go::msg::dds_::IMUState_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_go::msg::dds_::IMUState_& instance, entity_properties_t *props) {
