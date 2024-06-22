@@ -244,7 +244,7 @@ namespace core{
 namespace cdr{
 
 template<>
-propvec &get_type_props<::unitree_api::msg::dds_::Request_>();
+const propvec &get_type_props<::unitree_api::msg::dds_::Request_>();
 
 template<typename T, std::enable_if_t<std::is_base_of<cdr_stream, T>::value, bool> = true >
 bool write(T& streamer, const ::unitree_api::msg::dds_::Request_& instance, entity_properties_t *props) {
